@@ -4,19 +4,24 @@ const axios = require("axios");
 const cors = require("cors");
 const { PORT, AUTH_SERVER, MOVIE_SERVER, QUERY_SERVER } = require("./config/app.config");
 const app = express();
+const events = [];
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
+app.get("/events", (req, res) => {
+	res.status(200).send(events);
+});
+
 app.post("/events", async (req, res) => {
 	try {
-		const events = req.body;
-	
-		await axios.post(`${AUTH_SERVER}/events`, events);
-		await axios.post(`${MOVIE_SERVER}/events`, events);
-		await axios.post(`${QUERY_SERVER}/events`, events);
-	
+		const data = req.body;
+		events.push(data);
+
+		await axios.post(`${AUTH_SERVER}/events`, data);
+		await axios.post(`${MOVIE_SERVER}/events`, data);
+		await axios.post(`${QUERY_SERVER}/events`, data);
 		res.send({ status: "OK" });
 	} catch (error) {
 		console.log(error);

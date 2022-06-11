@@ -14,7 +14,7 @@ module.exports = {
 				return res.status(401).json(error);
 			}
 		} catch (error) {
-			res.status(error?.response?.code || 500).json(error.response.data);
+			res.status(error?.response?.code || 500).json(error.response?.data || { message: error.message, code: "500" });
 		}
 	},
 };

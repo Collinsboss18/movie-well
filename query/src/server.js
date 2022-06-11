@@ -2,26 +2,26 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const cors = require("cors");
-const { PORT } = require("./config/app.config");
+const { PORT, EVENT_BUS } = require("./config/app.config");
 const app = express();
 const movies = {};
+const handleEvents = (type, data) => {
+	if (type === "MovieCreated") {
+		movies[data.id] = data;
+	}
+};
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
 app.get("/movies", async (req, res) => {
-	console.log(movies, "MOVIES");
 	return res.status(200).send(movies);
 });
 
 app.post("/events", async (req, res) => {
 	const { type, body } = req.body;
-
-	if (type === "MovieCreated") {
-		movies[body.id] = body;
-	}
-	console.log(movies);
+	handleEvents(type, body);
 });
 
 app.use((error, _, res, __) => {
@@ -30,4 +30,11 @@ app.use((error, _, res, __) => {
 	return res.status(500).json({ error: "internal server error" });
 });
 
-app.listen(PORT, () => console.log(`event bus svc running at port ${PORT}`));
+app.listen(PORT, async () => {
+	console.log(`query svc running at port ${PORT}`)
+	const res = await axios.get(`${EVENT_BUS}/events`);
+	for (let event of res.data) {
+		console.log("Processing events: ", event.type);
+		handleEvents(event.type, event.body)
+	}
+});

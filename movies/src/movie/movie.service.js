@@ -1,5 +1,4 @@
 const axios = require("axios");
-const fetch = require("node-fetch");
 const { v4: uuid } = require("uuid");
 const { OMD_API_KEY, OMD_API } = require("../config/app.config");
 const { MovieCreated } = require("../event");
@@ -21,8 +20,6 @@ class MovieService {
 	 */
 	async createMovie() {
 		try {
-			// const response = await fetch(`https://www.omdbapi.com/?s=${this.data.title}&apikey=${OMD_API_KEY}`);
-			// const data = await response.json();
 			const response = await axios.post(`${OMD_API}/?s=${this.data.title}&apikey=${OMD_API_KEY}`);
 			const data = await response.data;
 			const movie = data.Search[0];

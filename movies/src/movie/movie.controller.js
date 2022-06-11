@@ -17,7 +17,6 @@ const MovieController = {
 	createMovie: async (req, res) => {
 		try {
 			const createMovie = await new MovieService(req.body).createMovie();
-			console.log(createMovie, "CREATE MOVIE");
 
 			if (!createMovie.error) {
 				res.status(createMovie.code).json(createMovie);
@@ -25,7 +24,6 @@ const MovieController = {
 				throw createMovie;
 			}
 		} catch (error) {
-			console.log(error);
 			return res.status(error.code || 500).json(new Error(error));
 		}
 	},

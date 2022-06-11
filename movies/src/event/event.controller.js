@@ -1,7 +1,7 @@
 const EventController = {
 	initiate: (req, res) => {
 		console.log("MOVIES");
-		res.send("hello");
+		res.send("Movie Event");
 	},
 };
 
