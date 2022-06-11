@@ -1,5 +1,5 @@
 module.exports = {
-	JWT_SECRET: process.env.JWT_SECRET || "secret",
+	PORT: process.env.PORT || 3001,
 	OMD_API_KEY: process.env.OMD_API_KEY || "dbec9b79",
 	EVENT_BUS: process.env.EVENT_BUS_SERVER || "http://localhost:3002",
 	AUTH_SERVER: process.env.AUTH_SERVER || "http://localhost:3000",

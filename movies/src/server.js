@@ -5,8 +5,6 @@ const cors = require('cors');
 /** APP ROUTES */
 const MovieRoutes = require("./movie/movie.routes");
 const EventRoutes = require("./event/event.routes");
-
-const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(bodyParser.json());

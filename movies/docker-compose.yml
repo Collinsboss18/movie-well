@@ -6,9 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - published: ${APP_PORT:-3000}
+      - published: ${APP_PORT:-3002}
         target: 3000
     volumes:
       - .:/app/
     environment:
-      JWT_SECRET: ${JWT_SECRET}
+      AUTH_SERVER: ${AUTH_SERVER}
+      OMD_API_KEY: ${OMD_API_KEY}
+      OMD_API: ${OMD_API}
+      EVENT_BUS_SERVER: ${EVENT_BUS}
