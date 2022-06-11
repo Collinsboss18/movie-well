@@ -1,5 +1,8 @@
 # Node.js recruitment task
 
+## Code implementation
+> POSTMAN API - https://www.getpostman.com/collections/e430fadeaa841e9ff907
+
 We'd like you to build a simple Movie API. It should provide two endpoints:
 
 1. `POST /movies`
